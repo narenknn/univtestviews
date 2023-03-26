@@ -1,3 +1,4 @@
+#include "main.h"
 
 void
 MultiInputTableViewTest::view_test(nlohmann::json& retj)

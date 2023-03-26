@@ -1,3 +1,5 @@
+#include "main.h"
+
 void
 MultiInputsViewTest::view_test(nlohmann::json& retj)
 {
