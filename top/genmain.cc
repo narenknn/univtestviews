@@ -4,7 +4,7 @@
 #include <boost/algorithm/string.hpp>
 
 #include "nlohmann/json.hpp"
-#include "genmain.h"
+#include "top/genmain.h"
 
 std::unordered_map<std::string, GenMod *> GenMod::all_mods;
 
