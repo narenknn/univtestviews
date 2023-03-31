@@ -12,6 +12,8 @@ const std::vector<std::string> Genmain::htmlColors { "HotPink", "DeepPink", "Pal
 const std::vector<std::string> Genmain::htmlBackgroundColors { "LightYellow", "LemonChiffon", "LightGoldenrodYellow", "PapayaWhip", "Cornsilk", "BlanchedAlmond", "Bisque", "NavajoWhite", "lightcyan", "White", "Snow", "Honeydew", "MintCream", "Azure", "AliceBlue", "GhostWhite", "WhiteSmoke", "Seashell", "Beige", "OldLace", "FloralWhite", "Ivory", "AntiqueWhite", "Linen", "LavenderBlush", "MistyRose" };
 const std::vector<std::string> Genmain::symbols {"symbolCircle", "symbolCross", "symbolDiamond", "symbolSquare", "symbolStar", "symbolTriangle", "symbolWye"};
 
+#include <iostream>
+
 std::string
 genmain(std::string s_config)
 {
@@ -25,6 +27,10 @@ genmain(std::string s_config)
     goto genmain_return;
 
   /* */
+  std::cout << "abcd\n";
+  for (auto &it: GenMod::all_mods) {
+    std::cout << it.first << "\n";
+  }
   if (config.contains("seed")) {
     comp->seed(config["seed"].get<std::uint32_t>());
   }
