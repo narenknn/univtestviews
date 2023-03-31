@@ -29,7 +29,7 @@ genmain(std::string s_config)
   /* */
   std::cout << "abcd\n";
   for (auto &it: GenMod::all_mods) {
-    std::cout << it.first << "\n";
+    std::cout << cn_arr[0] << ":" << it.first << "\n";
   }
   if (config.contains("seed")) {
     comp->seed(config["seed"].get<std::uint32_t>());
