@@ -8,6 +8,9 @@
 extern std::string
 genmain(std::string s_config);
 
+extern std::string
+checkmain(std::string s_config, std::string ques, std::string ans);
+
 void
 ViewTest::runtest(const std::string conf, controller_test_f controller_test, bool debug)
 {

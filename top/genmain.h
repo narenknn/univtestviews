@@ -30,16 +30,20 @@ public:
   virtual ~Controller() {}
 };
 
+class GenMod;
+extern std::unique_ptr<std::unordered_map<std::string, GenMod *> > all_mods;
+
 class GenMod {
 public:
-  static std::unordered_map<std::string, GenMod *> all_mods;
   std::unordered_map<std::string, std::unique_ptr<Controller> > controllers;
   std::shared_ptr<RandGenerator> rand;
 
   GenMod(const std::string cname, std::uint32_t seed = std::random_device{}()) :
     rand(std::make_shared<RandGenerator> (seed))
   {
-    all_mods.emplace(cname, this);
+    if (! all_mods)
+      all_mods = std::make_unique<std::unordered_map<std::string, GenMod *> >();
+    all_mods->emplace(cname, this);
   }
 
   void seed(uint32_t sv)

@@ -6,11 +6,11 @@
 #include "nlohmann/json.hpp"
 #include "top/genmain.h"
 
-std::unordered_map<std::string, GenMod *> GenMod::all_mods;
-
 const std::vector<std::string> Genmain::htmlColors { "HotPink", "DeepPink", "PaleVioletRed", "MediumVioletRed", "LightSalmon", "Salmon", "DarkSalmon", "LightCoral", "IndianRed", "Crimson", "FireBrick", "DarkRed", "Red", "OrangeRed", "Tomato", "Coral", "DarkOrange", "Orange", "DarkKhaki", "Gold", "BurlyWood", "Tan", "RosyBrown", "SandyBrown", "Goldenrod", "DarkGoldenrod", "Peru", "Chocolate", "SaddleBrown", "Sienna", "Brown", "Maroon", "DarkOliveGreen", "Olive", "OliveDrab", "YellowGreen", "LimeGreen", "DarkSeaGreen", "MediumSeaGreen", "SeaGreen", "ForestGreen", "Green", "DarkGreen", "MediumAquamarine", "Turquoise", "MediumTurquoise", "DarkTurquoise", "LightSeaGreen", "CadetBlue", "DarkCyan", "Teal", "DeepSkyBlue", "DodgerBlue", "CornflowerBlue", "SteelBlue", "RoyalBlue", "Blue", "MediumBlue", "DarkBlue", "Navy", "MidnightBlue", "Violet", "Orchid", "Fuchsia", "Magenta", "MediumOrchid", "MediumPurple", "BlueViolet", "DarkViolet", "DarkOrchid", "DarkMagenta", "Purple", "Indigo", "DarkSlateBlue", "RebeccaPurple", "SlateBlue", "MediumSlateBlue", "Gray", "DimGray", "LightSlateGray", "SlateGray", "DarkSlateGray", "Black" };
 const std::vector<std::string> Genmain::htmlBackgroundColors { "LightYellow", "LemonChiffon", "LightGoldenrodYellow", "PapayaWhip", "Cornsilk", "BlanchedAlmond", "Bisque", "NavajoWhite", "lightcyan", "White", "Snow", "Honeydew", "MintCream", "Azure", "AliceBlue", "GhostWhite", "WhiteSmoke", "Seashell", "Beige", "OldLace", "FloralWhite", "Ivory", "AntiqueWhite", "Linen", "LavenderBlush", "MistyRose" };
 const std::vector<std::string> Genmain::symbols {"symbolCircle", "symbolCross", "symbolDiamond", "symbolSquare", "symbolStar", "symbolTriangle", "symbolWye"};
+
+std::unique_ptr<std::unordered_map<std::string, GenMod *> > all_mods;
 
 std::string
 genmain(std::string s_config)
@@ -21,11 +21,11 @@ genmain(std::string s_config)
 
   /* get the comp */
   boost::algorithm::split(cn_arr, config["controller"].get<std::string>(), boost::is_any_of("-"));
-  if (GenMod::all_mods.find(cn_arr[0]) == GenMod::all_mods.end())
+  if (all_mods->find(cn_arr[0]) == all_mods->end())
     goto genmain_return;
 
   /* */
-  comp = GenMod::all_mods[cn_arr[0]];
+  comp = (*all_mods)[cn_arr[0]];
   if (config.contains("seed")) {
     comp->seed(config["seed"].get<std::uint32_t>());
   }
@@ -46,11 +46,11 @@ checkmain(std::string s_config, std::string s_question, std::string s_ans)
 
   /* get the comp */
   boost::algorithm::split(cn_arr, config["controller"].get<std::string>(), boost::is_any_of("-"));
-  if (GenMod::all_mods.find(cn_arr[0]) == GenMod::all_mods.end())
+  if (all_mods->find(cn_arr[0]) == all_mods->end())
     goto checkmain_return;
 
   /* */
-  comp = GenMod::all_mods[cn_arr[0]];
+  comp = (*all_mods)[cn_arr[0]];
   return comp->check(cn_arr[1], config, question, ans);
 
  checkmain_return:
