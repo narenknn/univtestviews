@@ -13,8 +13,8 @@ ViewTest::runtest(const std::string conf, controller_test_f controller_test, boo
 {
   /* should be a json */
   for (auto i=20; i; i--) {
-    auto confj = nlohmann::json::parse(conf);
-    std::string ret1 = genmain(conf);
+    // auto confj = nlohmann::json::parse(conf);
+    // std::string ret1 = genmain(conf);
     if (debug) {
       // ASSERT_TRUE(false) << ret1;
     }
