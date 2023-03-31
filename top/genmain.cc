@@ -27,13 +27,10 @@ genmain(std::string s_config)
     goto genmain_return;
 
   /* */
-  std::cout << "abcd\n";
-  for (auto &it: GenMod::all_mods) {
-    std::cout << cn_arr[0] << ":" << it.first << "\n";
-  }
   if (config.contains("seed")) {
     comp->seed(config["seed"].get<std::uint32_t>());
   }
+  std::cout << "comp:" << comp << "\n";
   return comp->gen(cn_arr[1], config);
 
  genmain_return:
