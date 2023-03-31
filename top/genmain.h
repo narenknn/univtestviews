@@ -47,8 +47,8 @@ public:
     rand->rng.seed(sv);
   }
 
-  virtual std::string gen(const std::string cname, nlohmann::json& config) = 0;
-  virtual std::string check(const std::string cname, nlohmann::json& config, nlohmann::json& question, nlohmann::json& ans) = 0;
+  virtual std::string gen(const std::string cname, nlohmann::json& config);
+  virtual std::string check(const std::string cname, nlohmann::json& config, nlohmann::json& question, nlohmann::json& ans);
 };
 
 namespace Genmain {

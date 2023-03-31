@@ -20,15 +20,15 @@ genmain(std::string s_config)
 
   /* get the comp */
   boost::algorithm::split(cn_arr, config["controller"].get<std::string>(), boost::is_any_of("-"));
-  auto comp = GenMod::all_mods[cn_arr[1]];
-  if (GenMod::all_mods.find(cn_arr[1]) == GenMod::all_mods.end())
+  auto comp = GenMod::all_mods[cn_arr[0]];
+  if (GenMod::all_mods.find(cn_arr[0]) == GenMod::all_mods.end())
     goto genmain_return;
 
   /* */
   if (config.contains("seed")) {
     comp->seed(config["seed"].get<std::uint32_t>());
   }
-  return comp->gen(cn_arr[2], config);
+  return comp->gen(cn_arr[1], config);
 
  genmain_return:
   return "{text: 'Wrong setup, test was not generated!'}";
@@ -44,13 +44,39 @@ checkmain(std::string s_config, std::string s_question, std::string s_ans)
 
   /* get the comp */
   boost::algorithm::split(cn_arr, config["controller"].get<std::string>(), boost::is_any_of("-"));
-  auto comp = GenMod::all_mods[cn_arr[1]];
-  if (GenMod::all_mods.find(cn_arr[1]) == GenMod::all_mods.end())
-    goto genmain_return;
+  auto comp = GenMod::all_mods[cn_arr[0]];
+  if (GenMod::all_mods.find(cn_arr[0]) == GenMod::all_mods.end())
+    goto checkmain_return;
 
   /* */
-  return comp->check(cn_arr[2], config, question, ans);
+  return comp->check(cn_arr[1], config, question, ans);
 
- genmain_return:
+ checkmain_return:
   return "{text: 'Wrong setup, test was not generated!'}";
+}
+
+
+std::string
+GenMod::gen(const std::string cname, nlohmann::json& config)
+{
+  /* */
+  nlohmann::json ret;
+
+  if (controllers.find(cname) != controllers.end())
+    controllers[cname]->gen(ret, rand, config);
+
+  return ret.dump();
+}
+
+std::string
+GenMod::check(const std::string cname, nlohmann::json& config, nlohmann::json& question, nlohmann::json& ans)
+{
+  /* */
+  nlohmann::json ret;
+
+  ret["result"] = false;
+  if (controllers.find(cname) != controllers.end())
+    controllers[cname]->check(ret, config, question, ans);
+
+  return ret.dump();
 }
