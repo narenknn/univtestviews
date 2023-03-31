@@ -19,18 +19,22 @@ genmain(std::string s_config)
 {
   nlohmann::json config = nlohmann::json::parse(s_config);
   std::vector<std::string> cn_arr;
+  GenMod* comp;
 
   /* get the comp */
   boost::algorithm::split(cn_arr, config["controller"].get<std::string>(), boost::is_any_of("-"));
-  auto comp = GenMod::all_mods[cn_arr[0]];
   if (GenMod::all_mods.find(cn_arr[0]) == GenMod::all_mods.end())
     goto genmain_return;
 
   /* */
+  std::cout << "abcd\n";
+  for (auto &it: GenMod::all_mods) {
+    std::cout << cn_arr[0] << "--" << it.first << "\n";
+  }
+  comp = GenMod::all_mods[cn_arr[0]];
   if (config.contains("seed")) {
     comp->seed(config["seed"].get<std::uint32_t>());
   }
-  std::cout << "comp:" << comp << "\n";
   return comp->gen(cn_arr[1], config);
 
  genmain_return:
@@ -44,14 +48,15 @@ checkmain(std::string s_config, std::string s_question, std::string s_ans)
   nlohmann::json question = nlohmann::json::parse(s_question);
   nlohmann::json ans = nlohmann::json::parse(s_ans);
   std::vector<std::string> cn_arr;
+  GenMod* comp;
 
   /* get the comp */
   boost::algorithm::split(cn_arr, config["controller"].get<std::string>(), boost::is_any_of("-"));
-  auto comp = GenMod::all_mods[cn_arr[0]];
   if (GenMod::all_mods.find(cn_arr[0]) == GenMod::all_mods.end())
     goto checkmain_return;
 
   /* */
+  comp = GenMod::all_mods[cn_arr[0]];
   return comp->check(cn_arr[1], config, question, ans);
 
  checkmain_return:
