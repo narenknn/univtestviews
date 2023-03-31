@@ -18,7 +18,7 @@ ViewTest::runtest(const std::string conf, controller_test_f controller_test, boo
     if (debug) {
       ASSERT_TRUE(false) << ret1;
     }
-    ASSERT_TRUE(nlohmann::json::accept(ret1));
+    ASSERT_TRUE(nlohmann::json::accept(ret1)) << "genmain() didnt return a valid JSON!";
     // auto retj = nlohmann::json::parse(ret1);
     // view_test(retj);
     // controller_test(confj, retj, debug);
