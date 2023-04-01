@@ -7,3 +7,6 @@ public:
 
 #include "multiinputs.h"
 #include "multiinputtable.h"
+#include "arrayselect.h"
+#include "btnchoice.h"
+#include "skillbuilders.h"
