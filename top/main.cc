@@ -12,18 +12,18 @@ extern std::string
 checkmain(std::string s_config, std::string ques, std::string ans);
 
 void
-ViewTest::runtest(const std::string conf, controller_test_f controller_test, bool debug)
+ViewTest::runtest(const std::string conf, controller_test_f controller_test, uint32_t times, bool debug)
 {
   /* should be a json */
-  for (auto i=20; i; i--) {
+  for (; times; times--) {
     auto confj = nlohmann::json::parse(conf);
     std::string ret1 = genmain(conf);
     if (debug) {
       ASSERT_TRUE(false) << ret1;
     }
-    // ASSERT_TRUE(nlohmann::json::accept(ret1)) << "genmain() didnt return a valid JSON!";
-    // auto retj = nlohmann::json::parse(ret1);
-    // view_test(retj);
+    ASSERT_TRUE(nlohmann::json::accept(ret1)) << "genmain() didnt return a valid JSON!";
+    auto retj = nlohmann::json::parse(ret1);
+    view_test(retj);
     // controller_test(confj, retj, debug);
   }
 }
