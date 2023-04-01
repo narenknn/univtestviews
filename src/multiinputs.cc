@@ -3,7 +3,7 @@
 #include <gtest/gtest.h>
 
 #include "nlohmann/json.hpp"
-#include "main.h"
+#include "top/main.h"
 
 void
 MultiInputsViewTest::view_test(nlohmann::json& retj)
