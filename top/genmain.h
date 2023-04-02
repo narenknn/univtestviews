@@ -72,3 +72,9 @@ namespace Genmain {
 }
 
 #define __CLASS_NAME__ Genmain::__className__(__PRETTY_FUNCTION__)
+
+#define TEST_F_WRAP(confstr, tname, test) \
+  TEST_F(tname, test) { \
+  auto conf = confstr; \
+  runtest(conf, test); \
+  }
