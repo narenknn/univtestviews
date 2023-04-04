@@ -5,7 +5,7 @@ public:
 
 class ControllerTest : public ::testing::Test {
 public:
-  static std::unordered_map<std::string, std::unique_ptr<ViewTest> > view_tests;
+  static std::unordered_map<std::string, std::shared_ptr<ViewTest> > view_tests;
   typedef void controller_test_f(nlohmann::json& confj, nlohmann::json& retj, bool debug);
   virtual void runtest(const std::string conf, controller_test_f controller_test, uint32_t times=20, bool debug=false);
 };
