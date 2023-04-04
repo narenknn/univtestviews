@@ -11,8 +11,16 @@ genmain(std::string s_config);
 extern std::string
 checkmain(std::string s_config, std::string ques, std::string ans);
 
+const std::unordered_map<std::string, std::unique_ptr<ViewTest> > ControllerTest::view_tests {
+  {"ArraySelectViewTest", std::make_unique<ArraySelectViewTest>()},
+    {"BtnChoiceViewTest", std::make_unique<BtnChoiceViewTest>()},
+      {"MultiInputsViewTest", std::make_unique<MultiInputsViewTest>()},
+        {"MultiInputTableViewTest", std::make_unique<MultiInputTableViewTest>()},
+          {"SkillBuildersViewTest", std::make_unique<SkillBuildersViewTest>()},
+};
+
 void
-ViewTest::runtest(const std::string conf, controller_test_f controller_test, uint32_t times, bool debug)
+ControllerTest::runtest(const std::string conf, controller_test_f controller_test, uint32_t times, bool debug)
 {
   /* should be a json */
   for (; times; times--) {
@@ -23,7 +31,11 @@ ViewTest::runtest(const std::string conf, controller_test_f controller_test, uin
     }
     ASSERT_TRUE(nlohmann::json::accept(ret1)) << "genmain() didnt return a valid JSON!";
     auto retj = nlohmann::json::parse(ret1);
-    view_test(retj);
+    auto vname {conf["view"].get<std::string>()};
+    if (!vname || (view_tests.end() == view_tests.find(vname))) {
+      ASSERT_TRUE(false) << "Couldnt find the view for conf : " << conf;
+    } else
+      view_tests[vname](retj);
     controller_test(confj, retj, debug);
   }
 }
