@@ -21,6 +21,13 @@ public:
     auto max_val = r % max_div;
     return (max_val < min_val) ? min_val : max_val;
   }
+  uint32_t get_digits_no0(uint32_t min, uint32_t max) {
+    for (uint32_t ui=10; ui; ui--) {
+      auto ret = get_digits(min, max);
+      if (ret) return ret;
+    }
+    return 0;
+  }
 };
 
 class Controller {
