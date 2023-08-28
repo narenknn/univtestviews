@@ -10,16 +10,13 @@ public:
     return uint_dist(rng);
   }
   uint32_t get_range(uint32_t min, uint32_t max) {
-    uint32_t r = get() + min;
-    return r % max;
+    return (get() % (max-min + 1)) + min;
   }
   uint32_t get_digits(uint32_t min, uint32_t max) {
     uint32_t min_div = 1, max_div = 1, r = get();
     for (; min; min--) min_div *= 10;
     for (; max; max--) max_div *= 10;
-    auto min_val = r % min_div;
-    auto max_val = r % max_div;
-    return (max_val < min_val) ? min_val : max_val;
+    return get_range(min_div, max_div);
   }
   uint32_t get_digits_no0(uint32_t min, uint32_t max) {
     for (uint32_t ui=10; ui; ui--) {
@@ -75,6 +72,13 @@ namespace Genmain {
       return "::";
     return prettyFunction.substr(0, colons);
   }
+
+}
+
+namespace MathsChecks {
+
+  void
+  check_multiarray(nlohmann::json& ret, nlohmann::json& config, nlohmann::json& q, nlohmann::json& ans);
 
 }
 

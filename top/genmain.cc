@@ -82,3 +82,21 @@ GenMod::check(const std::string cname, nlohmann::json& config, nlohmann::json& q
 
   return ret.dump();
 }
+
+namespace MathsChecks {
+
+  void
+  check_multiarray(nlohmann::json& ret, nlohmann::json& config, nlohmann::json& q, nlohmann::json& ans)
+  {
+    ret["result"] = true;
+    for(auto i = q["correct_ans"].size(); i; i--) {
+      for(auto j = q["correct_ans"][i-1].size(); j; j--) {
+        if (! q["correct_ans"][i-1][j-1].is_null())
+          if (q["correct_ans"][i-1][j-1].get<std::string>() != ans["ans"][i-1][j-1].get<std::string>())
+            ret["result"] = false;
+      }
+    }
+  }
+
+}
+
