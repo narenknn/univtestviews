@@ -55,6 +55,14 @@ public:
     rand->rng.seed(sv);
   }
 
+  static void seedall(uint32_t sv)
+  {
+    if (! all_mods) return;
+    for (auto it = all_mods->begin(); it != wordMap->end(); it++) {
+      it->second->seed(sv);
+    }
+  }
+
   virtual std::string gen(const std::string cname, nlohmann::json& config);
   virtual std::string check(const std::string cname, nlohmann::json& config, nlohmann::json& question, nlohmann::json& ans);
 };
