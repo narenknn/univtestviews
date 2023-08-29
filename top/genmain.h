@@ -58,7 +58,7 @@ public:
   static void seedall(uint32_t sv)
   {
     if (! all_mods) return;
-    for (auto it = all_mods->begin(); it != wordMap->end(); it++) {
+    for (auto it = all_mods->begin(); it != all_mods->end(); it++) {
       it->second->seed(sv);
     }
   }
