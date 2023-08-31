@@ -14,6 +14,7 @@ public:
   }
   uint32_t get_digits(uint32_t min, uint32_t max) {
     uint32_t min_div = 1, max_div = 1, r = get();
+    if (min == max) min--;
     for (; min; min--) min_div *= 10;
     for (; max; max--) max_div *= 10;
     return get_range(min_div, max_div);
