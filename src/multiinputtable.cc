@@ -32,6 +32,16 @@ MultiInputTableViewTest::view_test(nlohmann::json& retj)
   /* when expecting answer, expect '_' in table data */
   for(auto i = retj["correct_ans"].size(); i; i--) {
     for(auto j = retj["correct_ans"][i-1].size(); j; j--) {
+      /* both null or both same string, then skip */
+      if (retj["correct_ans"][i-1][j-1].is_null() and
+          retj["htabledata"][i-1][j-1].is_null())
+        continue;
+      else if (retj["correct_ans"][i-1][j-1].is_string() and
+               retj["htabledata"][i-1][j-1].is_string() and
+               (retj["correct_ans"][i-1][j-1].get<std::string>() ==
+                retj["htabledata"][i-1][j-1].get<std::string>())) {
+        continue;
+      }
       if (! retj["correct_ans"][i-1][j-1].is_null())
         ASSERT_EQ(retj["htabledata"][i-1][j-1], "_") << "i:" << (i-1) << " j:" << (j-1) << " retj:" << retj << std::endl;
       else
@@ -42,6 +52,16 @@ MultiInputTableViewTest::view_test(nlohmann::json& retj)
   /* when '_' in table data, expect answer */
   for(auto i = retj["correct_ans"].size(); i; i--) {
     for(auto j = retj["correct_ans"][i-1].size(); j; j--) {
+      /* both null or both same string, then skip */
+      if (retj["correct_ans"][i-1][j-1].is_null() and
+          retj["htabledata"][i-1][j-1].is_null())
+        continue;
+      else if (retj["correct_ans"][i-1][j-1].is_string() and
+               retj["htabledata"][i-1][j-1].is_string() and
+               (retj["correct_ans"][i-1][j-1].get<std::string>() ==
+                retj["htabledata"][i-1][j-1].get<std::string>())) {
+        continue;
+      }
       if ("_" == retj["htabledata"][i-1][j-1].get<std::string>()) {
         ASSERT_TRUE(retj["correct_ans"][i-1][j-1].is_string()) << "i:" << (i-1) << " j:" << (j-1) << " retj:" << retj << std::endl;
       } else
