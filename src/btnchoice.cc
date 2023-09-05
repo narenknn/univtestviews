@@ -12,6 +12,7 @@ BtnChoiceViewTest::view_test(nlohmann::json& retj)
   ASSERT_TRUE(retj["btnchoice"].is_array()) << retj.dump();
   ASSERT_GT(retj["btnchoice"].size(), 0) << retj.dump();
   ASSERT_TRUE(retj["correct_ans"].is_array()) << retj.dump();
+  ASSERT_GT(retj["correct_ans"].size(), 0) << retj.dump();
   for (auto &a: retj["correct_ans"]) {
     ASSERT_TRUE(a.is_number()) << retj.dump();
     ASSERT_LT(a.get<uint32_t>(), retj["btnchoice"].size()) << retj.dump();
