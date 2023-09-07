@@ -92,6 +92,7 @@ namespace MathsChecks {
 }
 
 #define __CLASS_NAME__ Genmain::__className__(__PRETTY_FUNCTION__)
+#define MAKE_CONTROLLER(C) controllers.emplace(#C, std::make_unique<C>())
 
 #define TEST_F_WRAP(confstr, tname, test, vargs...) \
   TEST_F(tname, test) {                             \
