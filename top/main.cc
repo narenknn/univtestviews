@@ -11,12 +11,14 @@ genmain(std::string s_config);
 extern std::string
 checkmain(std::string s_config, std::string ques, std::string ans);
 
-std::unordered_map<std::string, std::shared_ptr<ViewTest> > ControllerTest::view_tests {
+std::unordered_map<std::string, std::shared_ptr<ViewTest> > ControllerTest::view_tests
+{
+  {"TextInputViewTest", std::make_shared<TextInputViewTest>()},
   {"ArraySelectViewTest", std::make_shared<ArraySelectViewTest>()},
-    {"BtnChoiceViewTest", std::make_shared<BtnChoiceViewTest>()},
-      {"MultiInputsViewTest", std::make_shared<MultiInputsViewTest>()},
-        {"MultiInputTableViewTest", std::make_shared<MultiInputTableViewTest>()},
-          {"SkillBuildersViewTest", std::make_shared<SkillBuildersViewTest>()},
+  {"BtnChoiceViewTest", std::make_shared<BtnChoiceViewTest>()},
+  {"MultiInputsViewTest", std::make_shared<MultiInputsViewTest>()},
+  {"MultiInputTableViewTest", std::make_shared<MultiInputTableViewTest>()},
+  {"SkillBuildersViewTest", std::make_shared<SkillBuildersViewTest>()},
 };
 
 void
