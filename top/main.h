@@ -10,7 +10,6 @@ public:
   virtual void runtest(const std::string conf, controller_test_f controller_test, uint32_t times=20, bool debug=false);
 };
 
-#include "textinput.h"
 #include "multiinputs.h"
 #include "multiinputtable.h"
 #include "arrayselect.h"
