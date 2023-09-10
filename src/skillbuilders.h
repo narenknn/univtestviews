@@ -1,4 +1,4 @@
 class SkillBuildersViewTest : public ViewTest {
  public:
-  void view_test(nlohmann::json& retj);
+  void view_test(nlohmann::json& confj, nlohmann::json& retj);
 };

@@ -6,7 +6,7 @@
 #include "top/main.h"
 
 void
-SkillBuildersViewTest::view_test(nlohmann::json& retj)
+SkillBuildersViewTest::view_test(nlohmann::json& confj, nlohmann::json& retj)
 {
   /* only one answer & question array is 2 */
   ASSERT_EQ(retj["multiinput"][0].size(), 2) << retj.dump();

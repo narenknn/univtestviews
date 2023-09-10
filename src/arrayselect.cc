@@ -6,7 +6,7 @@
 #include "top/main.h"
 
 void
-ArraySelectViewTest::view_test(nlohmann::json& retj)
+ArraySelectViewTest::view_test(nlohmann::json& confj, nlohmann::json& retj)
 {
   /* only one answer & question array is 2 */
   ASSERT_TRUE(retj["datastr"].is_object()) << retj.dump();

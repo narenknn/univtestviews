@@ -1,6 +1,6 @@
 class ViewTest {
 public:
-  virtual void view_test(nlohmann::json& retj) = 0;
+  virtual void view_test(nlohmann::json& confj, nlohmann::json& retj) = 0;
 };
 
 class ControllerTest : public ::testing::Test {

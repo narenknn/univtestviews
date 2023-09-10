@@ -36,7 +36,7 @@ ControllerTest::runtest(const std::string conf, controller_test_f controller_tes
     if ((0 == vname.length()) || (view_tests.end() == view_tests.find(vname))) {
       ASSERT_TRUE(false) << "Couldnt find the view for conf : " << conf;
     } else
-      view_tests[vname]->view_test(retj);
+      view_tests[vname]->view_test(confj, retj);
     controller_test(confj, retj, debug);
   }
 }

@@ -6,7 +6,7 @@
 #include "top/main.h"
 
 void
-MultiInputTableViewTest::view_test(nlohmann::json& retj)
+MultiInputTableViewTest::view_test(nlohmann::json& confj, nlohmann::json& retj)
 {
   /* expecting object here having certain keys */
   ASSERT_TRUE(retj.is_object()) << ": Expecting object " << retj.dump();

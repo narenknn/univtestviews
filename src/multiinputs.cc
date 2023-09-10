@@ -7,7 +7,7 @@
 #include "top/main.h"
 
 void
-MultiInputsViewTest::view_test(nlohmann::json& retj)
+MultiInputsViewTest::view_test(nlohmann::json& confj, nlohmann::json& retj)
 {
   ASSERT_TRUE(retj.is_object()) << ": Expecting object " << retj.dump();
   ASSERT_TRUE(retj.contains("text")) << retj.dump();
