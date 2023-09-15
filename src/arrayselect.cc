@@ -12,7 +12,14 @@ ArraySelectViewTest::view_test(nlohmann::json& confj, nlohmann::json& retj)
   ASSERT_TRUE(retj["datastr"].is_object()) << retj.dump();
   ASSERT_TRUE(retj["datastr"]["size"].is_number()) << retj.dump();
   auto n = retj["datastr"]["size"].get<uint32_t>();
-  ASSERT_EQ(retj["status_answer"].size(), n*n) << retj.dump();
-  for (auto &v: retj["status_answer"])
-    ASSERT_TRUE(v.is_boolean()) << retj.dump();
+  if (retj["datastr"].contains("fill")) {
+    ASSERT_EQ(retj["datastr"]["fill"].size(), n*n) << retj.dump();
+    for (auto &v: retj["datastr"]["fill"])
+      ASSERT_TRUE(v.is_boolean()) << retj.dump();
+  }
+  if (retj.contains("status_answer")) {
+    ASSERT_EQ(retj["status_answer"].size(), n*n) << retj.dump();
+    for (auto &v: retj["status_answer"])
+      ASSERT_TRUE(v.is_boolean()) << retj.dump();
+  }
 }

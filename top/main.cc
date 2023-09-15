@@ -1,6 +1,7 @@
 #include <string>
 #include <iostream>
 #include <gtest/gtest.h>
+#include <boost/algorithm/string.hpp>
 
 #include "nlohmann/json.hpp"
 #include "top/main.h"
@@ -23,6 +24,8 @@ std::unordered_map<std::string, std::shared_ptr<ViewTest> > ControllerTest::view
 void
 ControllerTest::runtest(const std::string conf, controller_test_f controller_test, uint32_t times, bool debug)
 {
+  std::vector<std::string> views, tests;
+
   /* should be a json */
   for (; times; times--) {
     auto confj = nlohmann::json::parse(conf);
@@ -32,11 +35,14 @@ ControllerTest::runtest(const std::string conf, controller_test_f controller_tes
     }
     ASSERT_TRUE(nlohmann::json::accept(ret1)) << "genmain() didnt return a valid JSON!";
     auto retj = nlohmann::json::parse(ret1);
-    auto vname {confj["test"].get<std::string>()};
-    if ((0 == vname.length()) || (view_tests.end() == view_tests.find(vname))) {
-      ASSERT_TRUE(false) << "Couldnt find the view for conf : " << conf;
-    } else
-      view_tests[vname]->view_test(confj, retj);
+    auto tname {confj["test"].get<std::string>()};
+    boost::split(tests, tname, boost::is_any_of(":"));
+    for (auto &tiname: tests) {
+      if (view_tests.end() == view_tests.find(tiname)) {
+        ASSERT_TRUE(false) << "Couldnt find the view for conf : " << conf;
+      } else
+        view_tests[tiname]->view_test(confj, retj);
+    }
     controller_test(confj, retj, debug);
   }
 }
