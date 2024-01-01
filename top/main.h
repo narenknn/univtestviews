@@ -15,3 +15,4 @@ public:
 #include "arrayselect.h"
 #include "btnchoice.h"
 #include "skillbuilders.h"
+#include "d3only.h"

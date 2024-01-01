@@ -19,6 +19,7 @@ std::unordered_map<std::string, std::shared_ptr<ViewTest> > ControllerTest::view
   {"MultiInputsViewTest", std::make_shared<MultiInputsViewTest>()},
   {"MultiInputTableViewTest", std::make_shared<MultiInputTableViewTest>()},
   {"SkillBuildersViewTest", std::make_shared<SkillBuildersViewTest>()},
+  {"D3OnlyViewTest", std::make_shared<D3OnlyViewTest>()},
 };
 
 void
