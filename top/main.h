@@ -16,3 +16,4 @@ public:
 #include "btnchoice.h"
 #include "skillbuilders.h"
 #include "d3only.h"
+#include "d3shapes.h"
