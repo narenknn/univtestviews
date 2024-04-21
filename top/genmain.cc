@@ -32,7 +32,7 @@ genmain(std::string s_config)
   return comp->gen(cn_arr[1], config);
 
  genmain_return:
-  return "{text: 'Wrong setup, test was not generated!'}";
+  return "{\"text\":\"Wrong setup, test was not generated!\"}";
 }
 
 std::string
@@ -54,7 +54,7 @@ checkmain(std::string s_config, std::string s_question, std::string s_ans)
   return comp->check(cn_arr[1], config, question, ans);
 
  checkmain_return:
-  return "{text: 'Wrong setup, test was not generated!'}";
+  return "{\"text\":\"Wrong setup, check was not done!\"}";
 }
 
 
