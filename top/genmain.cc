@@ -92,7 +92,17 @@ namespace MathsChecks {
     for(auto i = q["correct_ans"].size(); i; i--) {
       for(auto j = q["correct_ans"][i-1].size(); j; j--) {
         if (! q["correct_ans"][i-1][j-1].is_null())
-          if (q["correct_ans"][i-1][j-1].get<std::string>() != ans["ans"][i-1][j-1].get<std::string>())
+          if (q["correct_ans"][i-1][j-1].is_string() && ans["ans"][i-1][j-1].is_string()) {
+            if (q["correct_ans"][i-1][j-1].get<std::string>() != ans["ans"][i-1][j-1].get<std::string>())
+              ret["result"] = false;
+          } else if (q["correct_ans"][i-1][j-1].is_boolean() && ans["ans"][i-1][j-1].is_boolean()) {
+            if (q["correct_ans"][i-1][j-1].get<bool>() != ans["ans"][i-1][j-1].get<bool>())
+              ret["result"] = false;
+          } else if (q["correct_ans"][i-1][j-1].is_number() && ans["ans"][i-1][j-1].is_number()) {
+            if (q["correct_ans"][i-1][j-1].get<float>() != ans["ans"][i-1][j-1].get<float>())
+              ret["result"] = false;
+          } else if (q["correct_ans"][i-1][j-1].is_null() && ans["ans"][i-1][j-1].is_null()) {
+          } else
             ret["result"] = false;
       }
     }
