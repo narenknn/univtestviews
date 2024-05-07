@@ -1,5 +1,6 @@
 #include <string>
 #include <random>
+#include <stdexcept>
 
 #include <boost/algorithm/string.hpp>
 
@@ -64,8 +65,14 @@ GenMod::gen(const std::string cname, nlohmann::json& config)
   /* */
   nlohmann::json ret;
 
-  if (controllers.find(cname) != controllers.end())
-    controllers[cname]->gen(ret, rand, config);
+  for (uint32_t ui=0; ui<4; ui++) {
+    try {
+      if (controllers.find(cname) != controllers.end())
+        controllers[cname]->gen(ret, rand, config);
+    } catch(std::runtime_error& e) {
+      continue;
+    }
+  }
 
   return ret.dump();
 }
