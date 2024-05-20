@@ -69,8 +69,8 @@ GenMod::gen(const std::string cname, nlohmann::json& config)
     try {
       if (controllers.find(cname) != controllers.end())
         controllers[cname]->gen(ret, rand, config);
+      break;
     } catch(std::runtime_error& e) {
-      continue;
     }
   }
 
